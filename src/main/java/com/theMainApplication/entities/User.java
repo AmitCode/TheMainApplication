@@ -5,28 +5,44 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
 @Table(name = "MAIN_APP_USERS_TABLE")
 @AllArgsConstructor
-@NoArgsConstructor
 @Setter
 @Getter
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long userId;
-    private String userName;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long userId;
     private String userFirstName;
     private String userMiddleName;
     private String userLastName;
-    private String userEmail;
-    private String userMobileNumber;
-    private String userPassword;
-    private String userConfirmPassword;
-    private String userGender;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<UserAddress> userAddress;
+    private String userContactNumber;
+    private String userEmailId;
+    private String isUserActive;
+    private String isEmailVarified;
+    private String password;
+    private String confirmPassword;
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+    @CreationTimestamp
+    private LocalDateTime creationDate;
+    @UpdateTimestamp
+    private LocalDateTime lastUpdated;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userInfo",fetch = FetchType.EAGER)
+    private List<UserAddress> addresses;
+
+
+    public User() {
+        this("Y");
+    }
+    public User(String isUserActive) {
+        this.isUserActive = isUserActive;
+    }
 }

@@ -1,12 +1,13 @@
 package com.theMainApplication.dtos;
 
-import com.theMainApplication.entities.UserAddress;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @AllArgsConstructor
@@ -14,14 +15,29 @@ import java.util.List;
 @Setter
 @Getter
 public class UserDto {
-    private long userId;
-    private String userName;
+    private Long userId;
+    @NotBlank(message = "User First Name is required")
     private String userFirstName;
+
+    @NotBlank(message = "User Middle Name is required")
     private String userMiddleName;
+
+    @NotBlank(message = "User Last Name is required")
     private String userLastName;
-    private String userEmail;
-    private String userMobileNumber;
+
+    @NotBlank(message = "User Contact Number is required")
+    @Pattern(regexp = "^[0-9]{10}$", message = "Contact number must be 10 digits")
+    private String userContactNumber;
+
+    @NotBlank(message = "User Email is required")
+    @Email(message = "Email must be in proper format")
+    private String userEmailId;
+    private String isUserActive;
+    private String isMobileVarified;
+    private String isEmailVarified;
+    @NotBlank(message = "User Password can't be empty!...")
     private String userPassword;
-    private String userConfirmPassword;
-    private String userGender;
+    @NotBlank(message = "Re-confirm your password!...")
+    private String isPasswordVarified;
+    private List<UserAddressDto> addresses;
 }

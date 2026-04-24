@@ -6,19 +6,38 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@NoArgsConstructor
+import javax.validation.constraints.NotBlank;
+
 @AllArgsConstructor
 @Setter
 @Getter
 public class UserAddressDto {
-    private long addressId;
+    private Long addressId;
+    @NotBlank(message = "Address type can't be null.")
     private String addressType;
-    private String houseNo;
-    private String street;
+    @NotBlank(message = "Home can't be null.")
+    private String home;
+    @NotBlank(message = "Pin code can't be null.")
+    private String pinCode;
+    @NotBlank(message = "Area can't be null.")
+    private String area;
+    @NotBlank(message = "City can't be null.")
     private String city;
+    @NotBlank(message = "State can't be null.")
     private String state;
+    @NotBlank(message = "Country can't be null.")
     private String country;
-    private String emailAddress;
-    private User user;
+    @NotBlank(message = "Please select primary address.")
+    private String isPrimaryAddress;
+    private String isAddressActive;
+    private User userInfo;
+
+    public UserAddressDto() {
+        this("Y");
+    }
+
+    public UserAddressDto(String isAddressActive) {
+        this.isAddressActive = isAddressActive;
+    }
 }
 
