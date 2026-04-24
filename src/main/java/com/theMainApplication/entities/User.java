@@ -26,7 +26,7 @@ public class User {
     private String userContactNumber;
     private String userEmailId;
     private String isUserActive;
-    private String isEmailVarified;
+    private String isEmailVerified;
     private String password;
     private String confirmPassword;
     @CreationTimestamp

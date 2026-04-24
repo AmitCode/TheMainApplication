@@ -33,11 +33,11 @@ public class UserDto {
     @Email(message = "Email must be in proper format")
     private String userEmailId;
     private String isUserActive;
-    private String isMobileVarified;
-    private String isEmailVarified;
+    private String isMobileVerified;
+    private String isEmailVerified;
     @NotBlank(message = "User Password can't be empty!...")
     private String userPassword;
     @NotBlank(message = "Re-confirm your password!...")
-    private String isPasswordVarified;
+    private String isPasswordVerified;
     private List<UserAddressDto> addresses;
 }
