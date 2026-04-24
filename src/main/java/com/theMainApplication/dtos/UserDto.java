@@ -16,6 +16,7 @@ import java.util.List;
 @Getter
 public class UserDto {
     private Long userId;
+    private String userName;
     @NotBlank(message = "User First Name is required")
     private String userFirstName;
 
@@ -38,6 +39,6 @@ public class UserDto {
     @NotBlank(message = "User Password can't be empty!...")
     private String userPassword;
     @NotBlank(message = "Re-confirm your password!...")
-    private String isPasswordVerified;
+    private String confirmPassword;
     private List<UserAddressDto> addresses;
 }

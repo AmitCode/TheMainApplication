@@ -1,5 +1,6 @@
 package com.theMainApplication.entities;
 
+import com.theMainApplication.dtos.UserDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,12 +21,14 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
+    private String userName;
     private String userFirstName;
     private String userMiddleName;
     private String userLastName;
     private String userContactNumber;
     private String userEmailId;
     private String isUserActive;
+    private String isMobileVerified;
     private String isEmailVerified;
     private String password;
     private String confirmPassword;
@@ -36,8 +39,7 @@ public class User {
     @UpdateTimestamp
     private LocalDateTime lastUpdated;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userInfo",fetch = FetchType.EAGER)
-    private List<UserAddress> addresses;
-
+    private List<UserDto> addresses;
 
     public User() {
         this("Y");
