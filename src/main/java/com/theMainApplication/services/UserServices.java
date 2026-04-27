@@ -27,9 +27,7 @@ public class UserServices {
 
     public String addNewUser(UserDto userDto){
         User user = UserModelMapper.mapToUser(userDto);
-        User id = repository.save(user);
-        if(user != null)
-            return "New user added successfully!...";
+
         return "Error";
     }
 }

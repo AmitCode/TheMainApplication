@@ -1,0 +1,30 @@
+package com.theMainApplication.dtos.response;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+public class UserServiceOprResponse {
+    private String statusCode;
+    private String responseMsg;
+    private String isOprSuccess;
+
+    public UserServiceOprResponse setStatusCode(String statusCode) {
+        this.statusCode = statusCode;
+        return this;
+    }
+
+    public UserServiceOprResponse setResponseMsg(String responseMsg) {
+        this.responseMsg = responseMsg;
+        return this;
+    }
+
+    public UserServiceOprResponse setIsOprSuccess(String isOprSuccess) {
+        this.isOprSuccess = isOprSuccess;
+        return this;
+    }
+}
