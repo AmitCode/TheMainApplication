@@ -2,6 +2,7 @@ package com.theMainApplication.mapper;
 
 import com.theMainApplication.dtos.UserAddressDto;
 import com.theMainApplication.dtos.UserDto;
+import com.theMainApplication.dtos.request.UserCreationRequest;
 import com.theMainApplication.entities.User;
 import com.theMainApplication.entities.UserAddress;
 
@@ -10,6 +11,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class UserModelMapper {
+
+    public static User mapToUserV1(UserCreationRequest request){
+
+        User users = new User();
+        users.setUserName(request.getUserName());
+        users.setPassword(request.getPassword());
+        users.setConfirmPassword(request.getPassword());
+
+        return users;
+    }
 
     /**
      * This method maps a {@link UserDto} object to a {@link User} entity object.

@@ -131,6 +131,7 @@ public class RetailerGlobalLevelException{
     @ExceptionHandler(UserNameAlreadyExist.class)
     public ResponseEntity<RetailerExceptionResponse> userNameAlreadyExist(UserNameAlreadyExist userNameAlreadyExist,
                                                                           WebRequest webRequest){
+        System.out.println("Here!...");
         return new ResponseEntity<>(new RetailerExceptionResponse(HttpStatus.BAD_REQUEST.value(),
                 userNameAlreadyExist.getMessage(), webRequest.getDescription(false)),
                 HttpStatus.BAD_REQUEST);
