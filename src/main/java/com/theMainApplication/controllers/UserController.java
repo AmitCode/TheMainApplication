@@ -6,10 +6,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/userService")
+@RequestMapping("/usersOpr")
 public class UserController {
     private final UserServices userServices;
     UserController(UserServices userServices){
@@ -22,7 +23,7 @@ public class UserController {
     }
 
     @PostMapping("/addNewUser")
-    public ResponseEntity<String> addNewUser(@RequestBody UserDto userDto){
+    public ResponseEntity<String> addNewUser(@Valid @RequestBody UserDto userDto){
         return new ResponseEntity<>(userServices.addNewUser(userDto), HttpStatus.CREATED);
     }
 

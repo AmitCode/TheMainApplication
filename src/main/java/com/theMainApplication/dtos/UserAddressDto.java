@@ -3,7 +3,6 @@ package com.theMainApplication.dtos;
 import com.theMainApplication.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;

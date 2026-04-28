@@ -1,10 +1,8 @@
 package com.theMainApplication.entities;
 
-import com.theMainApplication.dtos.UserDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -39,7 +37,7 @@ public class User {
     @UpdateTimestamp
     private LocalDateTime lastUpdated;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userInfo",fetch = FetchType.EAGER)
-    private List<UserDto> addresses;
+    private List<UserAddress> addresses;
 
     public User() {
         this("Y");

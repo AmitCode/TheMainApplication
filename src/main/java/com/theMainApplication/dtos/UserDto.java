@@ -2,7 +2,6 @@ package com.theMainApplication.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.Email;
@@ -11,7 +10,6 @@ import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @AllArgsConstructor
-@NoArgsConstructor
 @Setter
 @Getter
 public class UserDto {
@@ -41,4 +39,12 @@ public class UserDto {
     @NotBlank(message = "Re-confirm your password!...")
     private String confirmPassword;
     private List<UserAddressDto> addresses;
+
+    public UserDto() {
+        this("N","N");
+    }
+    public UserDto(String isMobileVerified, String isEmailVerified) {
+        this.isMobileVerified = isMobileVerified;
+        this.isEmailVerified = isEmailVerified;
+    }
 }

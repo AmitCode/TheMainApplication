@@ -1,10 +1,13 @@
 package com.theMainApplication.mapper;
 
+import com.theMainApplication.dtos.UserAddressDto;
 import com.theMainApplication.dtos.UserDto;
 import com.theMainApplication.entities.User;
+import com.theMainApplication.entities.UserAddress;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class UserModelMapper {
 
@@ -16,7 +19,22 @@ public class UserModelMapper {
      */
     public static User mapToUser(UserDto userDTO){
 
+        User users = getUser(userDTO);
+        System.out.println(users.getIsEmailVerified() + "," + users.getIsMobileVerified());
+        List<UserAddress> addresses = userDTO.getAddresses().stream()
+                //.map(addressDTO -> AddressModelMapper.mapToAddress(addressDTO))writing it to method reference
+                .map(AddressModelMapper::mapToAddress)//Method reference
+                .collect(Collectors.toList());
+
+        addresses.forEach(address -> address.setUserInfo(users));
+        users.setAddresses(addresses);
+
+        return users;
+    }
+
+    private static User getUser(UserDto userDTO) {
         User users = new User();
+        users.setUserName(userDTO.getUserName());
         users.setUserFirstName(userDTO.getUserFirstName());
         users.setUserMiddleName(userDTO.getUserMiddleName());
         users.setUserLastName(userDTO.getUserLastName());
@@ -26,15 +44,6 @@ public class UserModelMapper {
         users.setIsMobileVerified(userDTO.getIsMobileVerified());
         users.setPassword(userDTO.getUserPassword());
         users.setConfirmPassword(userDTO.getConfirmPassword());
-
-//        List<Address> addresses = userDTO.getAddresses().stream()
-//                //.map(addressDTO -> AddressModelMapper.mapToAddress(addressDTO))writing it to method reference
-//                .map(AddressModelMapper::mapToAddress)//Method reference
-//                .collect(Collectors.toList());
-//
-//        addresses.forEach(address -> address.setUserInfo(users));
-//        users.setAddresses(addresses);
-
         return users;
     }
 
@@ -48,6 +57,7 @@ public class UserModelMapper {
 
         UserDto userDTO = new UserDto();
         userDTO.setUserId(users.getUserId());
+        userDTO.setUserName(users.getUserName());
         userDTO.setUserFirstName(users.getUserFirstName());
         userDTO.setUserMiddleName(users.getUserMiddleName());
         userDTO.setUserLastName(users.getUserLastName());
@@ -59,13 +69,13 @@ public class UserModelMapper {
         userDTO.setUserPassword(users.getPassword());
         userDTO.setConfirmPassword(users.getConfirmPassword());
 
-//        List<AddressDTO> addresses = users.getAddresses().stream()
-//                .map(AddressModelMapper::mapToAddressDTO)
-//                .collect(Collectors.toList());
-//
-//        //addresses.forEach(address -> address.setUserInfo(users));
-//
-//        userDTO.setAddresses(addresses);
+        List<UserAddressDto> addresses = users.getAddresses().stream()
+                .map(AddressModelMapper::mapToAddressDTO)
+                .collect(Collectors.toList());
+
+        addresses.forEach(address -> address.setUserInfo(users));
+
+        userDTO.setAddresses(addresses);
 
         return userDTO;
     }

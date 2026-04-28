@@ -11,7 +11,7 @@ import lombok.Setter;
 public class UserServiceOprResponse {
     private String statusCode;
     private String responseMsg;
-    private String isOprSuccess;
+    private Boolean isOprSuccess;
 
     public UserServiceOprResponse setStatusCode(String statusCode) {
         this.statusCode = statusCode;
@@ -23,7 +23,7 @@ public class UserServiceOprResponse {
         return this;
     }
 
-    public UserServiceOprResponse setIsOprSuccess(String isOprSuccess) {
+    public UserServiceOprResponse setIsOprSuccess(Boolean isOprSuccess) {
         this.isOprSuccess = isOprSuccess;
         return this;
     }
