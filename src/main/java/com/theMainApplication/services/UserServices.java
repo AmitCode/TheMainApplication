@@ -7,6 +7,7 @@ import com.theMainApplication.entities.User;
 import com.theMainApplication.exceptions.SuppliersOprException.UserNameAlreadyExist;
 import com.theMainApplication.mapper.UserModelMapper;
 import com.theMainApplication.repositories.UserRepository;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -32,28 +33,47 @@ public class UserServices {
     }
 
     public UserServiceOprResponse addNewUserV1(UserCreationRequest request){
-        Optional<User> userOptional = repository.findByUserName(request.getUserName());
-        if(userOptional.isPresent())
+        try{
+            User user = UserModelMapper.mapToUserV1(request);
+            User newUser = repository.save(user);
+            response.setStatusCode(HttpStatus.CREATED.toString())
+                    .setIsOprSuccess(true)
+                    .setResponseMsg("User has been added successfully with id : "+ user.getUserId() +"!...");
+        }catch (DataIntegrityViolationException exception){
             throw new UserNameAlreadyExist("User already exists!...");
+        }
 
-        User user = UserModelMapper.mapToUserV1(request);
-        User newUser = repository.save(user);
-        response.setStatusCode(HttpStatus.CREATED.toString())
-                .setIsOprSuccess(true)
-                .setResponseMsg("User has been added successfully with id : "+ user.getUserId() +"!...");
+//        Optional<User> userOptional = repository.findByUserName(request.getUserName());
+//        if(userOptional.isPresent())
+//            throw new UserNameAlreadyExist("User already exists!...");
+//        User user = UserModelMapper.mapToUserV1(request);
+//        User newUser = repository.save(user);
+//        response.setStatusCode(HttpStatus.CREATED.toString())
+//                .setIsOprSuccess(true)
+//                .setResponseMsg("User has been added successfully with id : "+ user.getUserId() +"!...");
+
         return response;
     }
 
     public UserServiceOprResponse addNewUserV2(UserDto userDto){
-        Optional<User> userOptional = repository.findByUserName(userDto.getUserName());
-        if(userOptional.isPresent())
-            throw new UserNameAlreadyExist("User already exists!...");
+//        Optional<User> userOptional = repository.findByUserName(userDto.getUserName());
+//        if(userOptional.isPresent())
+//            throw new UserNameAlreadyExist("User already exists!...");
 
-        User user = UserModelMapper.mapToUser(userDto);
-        User newUser = repository.save(user);
-        response.setStatusCode(HttpStatus.CREATED.toString())
-                .setIsOprSuccess(true)
-                .setResponseMsg("User has been added successfully with id : "+ user.getUserId() +"!...");
+//        User user = UserModelMapper.mapToUser(userDto);
+//        User newUser = repository.save(user);
+//        response.setStatusCode(HttpStatus.CREATED.toString())
+//                .setIsOprSuccess(true)
+//                .setResponseMsg("User has been added successfully with id : "+ user.getUserId() +"!...");
+        try{
+            User user = UserModelMapper.mapToUser(userDto);
+            User newUser = repository.save(user);
+            response.setStatusCode(HttpStatus.CREATED.toString())
+                    .setIsOprSuccess(true)
+                    .setResponseMsg("User has been added successfully with id : "+ user.getUserId() +"!...");
+        }catch (DataIntegrityViolationException exception){
+            throw new UserNameAlreadyExist("User already exists!...");
+        }
         return response;
     }
 }
