@@ -34,7 +34,9 @@ public class UserController {
         return new ResponseEntity<>(userServices.addNewUserV2(userDto), HttpStatus.CREATED);
     }
 
-//    @PutMapping("/updateUserDetails")
-//    public ResponseEntity<String>
+    @PutMapping("/updateUserDetails")
+    public ResponseEntity<UserServiceOprResponse> updateUserDetails(@Valid @RequestBody UserDto userDto){
+        return new ResponseEntity<>(userServices.updateUserDetails(userDto), HttpStatus.ACCEPTED);
+    }
 
 }

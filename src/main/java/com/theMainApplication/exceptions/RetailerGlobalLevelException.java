@@ -4,6 +4,7 @@ import com.theMainApplication.errorResponse.RetailerExceptionResponse;
 import com.theMainApplication.exceptions.SuppliersOprException.EmailIdAlreadyExist;
 import com.theMainApplication.exceptions.SuppliersOprException.ResourceNotFound;
 import com.theMainApplication.exceptions.SuppliersOprException.UserNameAlreadyExist;
+import com.theMainApplication.exceptions.SuppliersOprException.UserServiceException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -39,8 +40,6 @@ public class RetailerGlobalLevelException{
                 webRequest.getDescription(false)),HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-
-
     /**
      * This method is responsible for catching all {@link HttpMessageNotReadableException}
      * and returning a ResponseEntity containing a RetailerExceptionResponse object with the
@@ -73,8 +72,6 @@ public class RetailerGlobalLevelException{
      *         set to {@link HttpStatus#NOT_FOUND}. The body of the ResponseEntity will contain the exception message
      *         and the description of the request that caused the exception.
      */
-
-
     @ExceptionHandler(ResourceNotFound.class)
     public ResponseEntity<RetailerExceptionResponse> supplierNotFound(ResourceNotFound resourceNotFound,
                                                                       WebRequest request){
@@ -84,8 +81,6 @@ public class RetailerGlobalLevelException{
 
 
     }
-
-
     /**
      * This method is used to handle {@link EmailIdAlreadyExist} exceptions thrown during the execution of any of the
      * {@link UserController} methods.
@@ -135,5 +130,13 @@ public class RetailerGlobalLevelException{
         return new ResponseEntity<>(new RetailerExceptionResponse(HttpStatus.BAD_REQUEST.value(),
                 userNameAlreadyExist.getMessage(), webRequest.getDescription(false)),
                 HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(UserServiceException.class)
+    public ResponseEntity<RetailerExceptionResponse> userServiceException(UserServiceException exception,
+                                                                          WebRequest request){
+        return new ResponseEntity<>(new RetailerExceptionResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                exception.getMessage(), request.getDescription(false)),
+                HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
